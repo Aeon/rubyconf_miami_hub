@@ -1,0 +1,65 @@
+---
+author: Anton Stroganov (@aeon)
+---
+
+Andrew Havens [@misbehavens](http://twitter.com/misbehavens), [copio.us](http://copio.us/)
+
+- level 1, building the machine
+	- cabinet - standup, cockpit, coctail table, bar-top arcade... 
+	- control panel layout
+		- one player, two, more?
+		- all kinds of different buttons...
+		- switches? micro, micro-leaf, true leaf.
+		- joysticks - 4-way or 8-way... use restrictor plates - there's a bunch of different kinds...
+		- tons of extras - trackballs, flight sticks, light guns, steering wheels.
+		- slagcoin.com has layouts based on most popular controllers, good for reference
+	- keyboard encoder
+		- ultimarc.com, i-pac is very popular, supports 2 players
+	- computer
+		- reuse any old machine, since the arcades don't really need much power.
+		- but hardware needs to support your needs... and able to be kiosk friendly, without weird dongles for video output or stuff like that.
+		- Raspberry pi has composite video built in... aha!
+	- Construction
+		- use your awesome carpentry skills to build the best cabinet in the world.
+		- used "textured contact paper" for the surface
+		- plexiglass is great, but more expensive...
+- level 2 - Front-end / game launcher
+	- Build our own... 
+		- started with curses, cmd-line only
+		- tried shoes, but it's not easy to make it work for full-screen apps and keyboard/controller input 
+		- didn't like QT
+		- settled on Gosu - crossplatform, openGL/C++, ruby wrapper
+	- Gosu provides hardware abstraction, run loop, handles input, provides API for shapes, images, text
+	- ruby game engines
+		- Gosu - desktop
+		- RubyMotion - Joybox - iOS
+		- JRuby - LibGDX, Slick2D - desktop, android
+	- Gosu libraries:
+		- Gamebox
+		- Chingu
+		- Metro
+	- Physics Engine:
+		- Chipmunk
+	- https://github.com/ruby-rcade
+- aside...
+	- how to run gosu on raspberry pi?
+	- Raspbian now comes with python, pygame... 
+		- so kids are learning python instead of ruby! oh noes!
+	- we need to improve gosu so it can run on raspberry pi!
+		- need help replacing Gosu custom c++ code to use SDL instead - that will allow for much easier porting/maintainability
+	- get involved in teaching kids Ruby and game programming
+		- GameEducationPDX.com, KidsRuby
+	- change perceptions
+		- computer science does not mean you'll be spending your life working on Excel
+	- improve ruby
+		- rubygamedev.com
+		- ruby is not seen as a good platform for game programming... but it could be!
+- level 3 - game programming
+	- games are big business.
+	- avg. ios indie game - 86K/year revenue (source?)
+	- all the gaming platforms run c/c++
+	- there's a ton of c++ gaming libraries...
+	- but we have mruby!
+	- which means we can leverage the existing C/C++ game libs and write just the controlling code in ruby... 
+	- https://github.com/ruby-rcade/mruby-game-engine-example
+	- http://blog.mruby.sh/
