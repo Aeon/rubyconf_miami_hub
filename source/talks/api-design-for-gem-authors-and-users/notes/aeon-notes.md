@@ -1,0 +1,52 @@
+---
+author: Anton Stroganov (@aeon)
+---
+
+API design for Gem authors and common folk - [@emstolfo](http://twitter.com/emstolfo), mongodb gem author
+
+- the constraints of designing for other programmers are stricter than designing for end user...
+- gem API design is basically UX design
+- httparty, rspec - succeed because they have great user experience
+- arguably mongo became popular super quickly because they focus on user/developer experience
+- research your user's experience
+	- blog posts, twitter, presentations... helps get user input about the problems they are solving
+	- establish trust with your users
+	- do not break their code...
+	- use semantic versioning to manage user expectations correctly!
+- involve super users - people who use your gem deeply will have interesting ideas.
+- UX design concepts:
+	- consistency
+		- use conventions (button colors communicate what button does)
+	- simplicity
+		- expose the minimum necessary that will concern the user... encapsulate the controls that are not vital to the user
+	- mapping
+		- the things that control other things should relate to each other clearly... confusing mapping leads to bugs and mistakes...
+		- example - visual mapping between stove burner controls...
+
+- How to apply these ideas in API design?
+	- consistency:
+		- consistent naming - variable names, option names, method names... the more different names you have, the more mental confusion there is
+		- consistent style - use consistent code formatting, argument chaining, etc... 
+		- consistent behaviour - for example, how do you consistently raise exceptions...
+		- example: run a map-reduce in mongo, some types of jobs cannot be run on secondary nodes...
+			- for map reduce, it would raise an exception
+			- for aggregation it would silently reroute to primary node
+			- the behaviour is inconsistent, will confuse users.
+	- simplicity:
+		- give classes single responsibilities... this helps make the code easy to organize, and the classes easy to mentally model
+		- modules should also be responsible for one thing... it makes life much easier.
+		- only expose things to the user that they need to interact with... 
+		- be frugal with helpers... only provide helpers for things that end user will need to use.
+		- example: mongo does not provide text_index, int_index, map_index, instead just provide create_index with an argument that determines index type (`create_index(type => Mongo::TEXT)`...
+		- design API first - start with some sample queries you want the user to write...
+	- Mapping:
+		- monkey patching is usually a bad idea... 
+		- Side effects are surprising... if a user passes opts to a method, do not mutate them...
+		- requiring method chaining is impolite... it requires user to know too much about your api internals... just give them clean accessors for things they need
+		- good error messages are vital
+		- mongoid has amazing example error message that's 3 paragraphs long... problem, summary, potential resolution
+	- Documentation without hesitation
+		- anything that is odd or non-obvious MUST be documented.
+		- README should be short and sweet, an abstract for your gem. It's not a tutorial or a full doc.
+- "Your First Ruby Gem" tutorial is great.
+- Get social, user interaction is great.
